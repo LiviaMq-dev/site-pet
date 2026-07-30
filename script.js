@@ -4,6 +4,7 @@ const navItems = document.querySelectorAll(".nav-links a, .nav-cta");
 const revealItems = document.querySelectorAll(".reveal-item");
 const hero = document.querySelector(".hero");
 const serviceToggles = document.querySelectorAll(".service-toggle");
+const signsCarousel = document.querySelector(".signs-carousel");
 let lastScrollY = window.scrollY;
 let ticking = false;
 
@@ -129,3 +130,75 @@ serviceToggles.forEach((toggle) => {
     toggle.setAttribute("aria-label", isExpanded ? "Fechar texto do servico" : "Abrir texto do servico");
   });
 });
+
+if (signsCarousel) {
+  const track = signsCarousel.querySelector(".signs-media");
+  const slides = Array.from(signsCarousel.querySelectorAll(".signs-photo"));
+  const prevButton = signsCarousel.querySelector(".signs-carousel-prev");
+  const nextButton = signsCarousel.querySelector(".signs-carousel-next");
+  const dots = Array.from(signsCarousel.querySelectorAll(".signs-carousel-dots button"));
+  const carouselMedia = window.matchMedia("(max-width: 1100px)");
+  let activeSlide = 0;
+  let autoplayTimer;
+  let autoplayRestartTimer;
+
+  const isCarouselActive = () => carouselMedia.matches;
+
+  const updateTrackPosition = () => {
+    if (!isCarouselActive()) {
+      track.style.transform = "";
+      return;
+    }
+
+    track.style.transform = `translateX(-${activeSlide * 100}%)`;
+  };
+
+  const setActiveSlide = (index) => {
+    activeSlide = (index + slides.length) % slides.length;
+    dots.forEach((dot, dotIndex) => {
+      dot.classList.toggle("is-active", dotIndex === activeSlide);
+    });
+    updateTrackPosition();
+  };
+
+  const goToSlide = (index) => {
+    setActiveSlide(index);
+  };
+
+  const startAutoplay = () => {
+    window.clearInterval(autoplayTimer);
+    autoplayTimer = window.setInterval(() => {
+      goToSlide(activeSlide + 1);
+    }, 4200);
+  };
+
+  const restartAutoplay = () => {
+    window.clearInterval(autoplayTimer);
+    window.clearTimeout(autoplayRestartTimer);
+    autoplayRestartTimer = window.setTimeout(startAutoplay, 3200);
+  };
+
+  prevButton.addEventListener("click", () => {
+    goToSlide(activeSlide - 1);
+    restartAutoplay();
+  });
+
+  nextButton.addEventListener("click", () => {
+    goToSlide(activeSlide + 1);
+    restartAutoplay();
+  });
+
+  dots.forEach((dot, index) =>
+    dot.addEventListener("click", () => {
+      goToSlide(index);
+      restartAutoplay();
+    })
+  );
+
+  window.addEventListener("resize", () => {
+    updateTrackPosition();
+    startAutoplay();
+  });
+
+  startAutoplay();
+}

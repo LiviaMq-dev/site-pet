@@ -228,10 +228,32 @@
 
     <section class="signs" id="sinais" aria-labelledby="signs-title">
       <div class="signs-inner">
-        <div class="signs-media reveal-item" style="--reveal-delay: 80ms" aria-hidden="true">
-          <img class="signs-photo" src="assets/images/carousel-laser.png" alt="" />
-          <img class="signs-photo" src="assets/images/carousel-fisio-balance.jpg" alt="" />
-          <img class="signs-photo" src="assets/images/signs-small-dog.jpg" alt="" />
+        <div class="signs-carousel reveal-item" style="--reveal-delay: 80ms">
+          <button class="signs-carousel-button signs-carousel-prev" type="button" aria-label="Imagem anterior">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m15 18-6-6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <div class="signs-carousel-viewport">
+            <div class="signs-media">
+              <img class="signs-photo" src="assets/images/carousel-laser.png" alt="Sess&atilde;o de fisioterapia com cachorro pequeno" />
+              <img class="signs-photo" src="assets/images/carousel-fisio-balance.jpg" alt="Sess&atilde;o de reabilita&ccedil;&atilde;o com cachorro em bola terap&ecirc;utica" />
+              <img class="signs-photo" src="assets/images/signs-small-dog.jpg" alt="Cachorro pequeno em descanso" />
+            </div>
+          </div>
+
+          <button class="signs-carousel-button signs-carousel-next" type="button" aria-label="Pr&oacute;xima imagem">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m9 6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <div class="signs-carousel-dots" aria-label="Navega&ccedil;&atilde;o do carrossel">
+            <button class="is-active" type="button" aria-label="Ver imagem 1"></button>
+            <button type="button" aria-label="Ver imagem 2"></button>
+            <button type="button" aria-label="Ver imagem 3"></button>
+          </div>
         </div>
 
         <div class="signs-content">
